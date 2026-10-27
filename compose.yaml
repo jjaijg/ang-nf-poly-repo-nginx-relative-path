@@ -1,0 +1,27 @@
+services:
+  gateway:
+    build:
+      context: ./gateway
+    image: angular-mfe-gateway:local
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - shell
+      - mfe
+    restart: unless-stopped
+
+  shell:
+    build:
+      context: ./shell
+    image: angular-shell:local
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  mfe:
+    build:
+      context: ./mfe
+    image: angular-mfe:local
+    expose:
+      - "8080"
+    restart: unless-stopped
